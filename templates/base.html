@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang = "pt-br">
+<head>
+  <meta charset = "UTF-8" />
+  <meta name = "description" content = "Projeto de Extensão de Análise e Desenvolvimento de Sistemas e Alimentos." />
+  <meta name = "keywords" content = "" />
+  <meta name = "author" content = "Fernando Witt, John Marcos & Rojiê Lima" />
+  <meta name = "robots" content = "index, follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel = "icon" href = "{% static 'imagens/icon.svg' %}"/>
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+  <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+  <a style="padding: 0;" id="inicio_da_pagina"></a>
+  <nav>
+    <ul>
+      <li><a href="../../../"><i class="material-icons">home</i> Início</a></li>
+      {% if request.user.is_superuser %}
+      <li class="dropdown"><a href="javascript:void(0)"><i class="material-icons">add_circle_outline</i> Cadastro</a>
+        <div class="dropdown-content-cadastros">
+          <a href="{% url 'aulas:criarNovaAula' %}">Aula</a>
+          <a href="{% url 'noticias:criarNoticia' %}">Notícia</a>
+          <a href="{% url 'aulas:criarCurso' %}">Curso</a>
+        </div>
+      </li>
+      {% endif %}
+      <li><a href="../../../cursos"><i class="material-icons">video_library</i> Cursos </a></li>
+      <li><a href="../../../consultas"><i class="material-icons">format_list_bulleted</i> Consultas</a></li>
+    </li>
+    {% if not user.is_authenticated %}
+    <li class="dropdown botao_login"><a href="javascript:void(0)"><i class="material-icons">account_circle</i></a>
+      <div class="dropdown-content-cadastros">
+        <h2>LOGIN</h2>
+
+        <form method="" action="contas/login/?next=/index/">
+          <input type="text" name="entrada_login_usuario" placeholder="Insira seu usuário" size="13"/>
+          <br><br>
+          <input type="password" name="entrada_login_senha" placeholder="Insira sua senha" size="13"/>
+          <strong>
+            <br>
+            <a class="tag_a_esqueci_senha botao_abrir_popups" href="#">Esqueci minha senha</a>
+          </strong>
+          <br><br>
+          <input type="submit" name="botaoEntrar" value="ENTRAR" class="botoes_form_cadastro"/>
+          <br><br>
+          <strong>
+            Novo por aqui?
+            <br>
+           <a href="{% url 'contas:cadastrarUsuario' %}">Cadastre-se</a>
+          </strong>
+        </form>
+      </div>
+    </li>
+    {% endif %}
+    {% if user.is_authenticated %}
+    <li class="botao_sair"><a href="{% url 'logout' %}"><i class="material-icons">person_outline</i> Sair </a></li>
+    {% endif %}
+    <li class="float-right"><a href="#"><i class="material-icons">info</i> Sobre Nós </a></li>
+    <li class="float-right"><a class="botao_ajuda" href="../../../ajuda"><i class="material-icons">help_outline</i> Ajuda</a></li>
+    <li class="li_entrada_pesquisa  float-right">
+      <b>
+        <input type="text" name="entrada_pesquisa" placeholder="Pesquisar"/>
+        <button type="submit"><i class="material-icons">search</i></button>
+      </b>
+    </li>
+  </ul>
+</nav>
+  <br>
+
+  <header>
+    {% block header %}
+    {% endblock %}
+  </header>
+
+  <div class="bloco_principal">
+    {% block content %}
+    {% endblock %}
+  </div>
+
+  <aside>
+  {% block aside %}
+  {% endblock %}
+  </aside>
+
+
+<!-- [2] POPUP PARA RECUPERAÇÃO DE SENHA (Icon Login > Esqueci minha senha) -->
+<div id="popup_esqueci_senha" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <h2>Recuperação de Senha</h2>
+    </div>
+    <div class="modal-body">
+      <form method="post" action="recuperarsenha">
+
+        <p>O form da recuperação de senha vai aqui. <br>Ex: e-mail para enviar link para o template para cadastrar a nova senha
+        </p>
+      </div>
+      <div class="modal-footer">
+        <input type="submit" name="botaoCadastrar" value="ENVIAR" class="botoes_form_cadastro"/>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<!-- JAVASCRIPT DAS ANIMAÇÕES DO NAVBAR -> POPUPS E DROPDOWNS -->
+<script>
+// Get the modal
+var popupCadastros = document.getElementsByClassName("modal");
+
+// Get the button that opens the modal
+var botao_abrir_popups = document.getElementsByClassName("botao_abrir_popups");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close");
+
+// When the user clicks the button, open the modal
+botao_abrir_popups[0].onclick = function() {
+  popupCadastros[0].style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span[0].onclick = function() {
+  popupCadastros[0].style.display = "none";
+}
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == popupCadastros) {
+      popupCadastros.style.display = "none";
+    }
+  }
+
+
+  </script>
+</body>
+</html>

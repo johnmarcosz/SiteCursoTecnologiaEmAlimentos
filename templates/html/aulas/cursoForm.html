@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Nova Aula{% endblock %}
+{% block content %}
+<fieldset class="fieldset_templates">
+  <div class="header_para_fieldsets">
+    <h3>CADASTRAR NOVO CURSO</h3>
+  </div>
+
+ <form method="POST" enctype="multipart/form-data">
+ 	{% csrf_token %}
+
+  <label for="curso">NOME</label>
+  <div id="curso">
+    {{ formCurso.nome }}
+  </div>
+
+  <label for="descricao">DESCRIÇÃO DO CURSO</label>
+  <div id="descricao">
+    {{ formCurso.descricao }}
+  </div>
+
+   <input type="submit" value="CADASTRAR" class="botoes_form_cadastro"/>
+
+ </form>
+</fieldset>
+{% endblock %}

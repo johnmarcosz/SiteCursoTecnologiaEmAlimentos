@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}{{aula.titulo}}{% endblock %}
+{% block content %}
+{% if request.user.is_superuser %}
+<input style="float: right;" type="submit" value="EDITAR" class="botoes_form_cadastro"/>
+<br>
+{% endif %}
+<h2>{{aula.titulo}}</h2>
+{{aula.conteudo}}
+<br>
+<br>
+<iframe width="560" height="315" src="{{aula.video}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<br>
+<br>
+
+<fieldset class="fieldset_quiz_aula">
+  <legend>RESPONDA O QUIZ PARA CONCLUIR ESTA AULA</legend>
+
+  <div class="">
+  <h4>Essa pergunta é verdadeira ou falsa?</h4>
+  <input type="radio" name="option" value="verdadeiro"> Verdadeiro
+  <input type="radio" name="option" value="falso"> Falso
+  </div>
+
+  <h4>Essa pergunta é verdadeira ou falsa?</h4>
+  <input type="radio" name="option2" value="verdadeiro"> Verdadeiro
+  <input type="radio" name="option2" value="falso"> Falso
+
+  <h4>Essa pergunta é verdadeira ou falsa?</h4>
+  <input type="radio" name="option3" value="verdadeiro"> Verdadeiro
+  <input type="radio" name="option3" value="falso"> Falso
+
+  <h4>Essa pergunta é verdadeira ou falsa?</h4>
+  <input type="radio" name="option4" value="verdadeiro"> Verdadeiro
+  <input type="radio" name="option4" value="falso"> Falso
+
+  <h4>Essa pergunta é verdadeira ou falsa?</h4>
+  <input type="radio" name="option5" value="verdadeiro"> Verdadeiro
+  <input type="radio" name="option5" value="falso"> Falso
+
+</fieldset>
+
+<input type="submit" value="CONCLUIR AULA" class="botoes_form_cadastro"/>
+
+{% endblock %}
